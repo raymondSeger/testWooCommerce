@@ -97,3 +97,10 @@ add_action( 'after_setup_theme', 'woocommerce_support' );
 function woocommerce_support() {
     add_theme_support( 'woocommerce' );
 }
+
+// register custom Foo_Widget Widget
+require_once(dirname(__FILE__) . '\widgets\raymondCustomWidget.php');
+function register_foo_widget() {
+    register_widget( 'Foo_Widget' );
+}
+add_action( 'widgets_init', 'register_foo_widget' );
