@@ -114,9 +114,11 @@ add_action( 'init', 'register_my_menu' );
 
 // add CSS to Admin
 add_action( 'admin_head', 'add_css_to_admin' );
-
 function add_css_to_admin() {
 	$css_file_to_add 	= get_template_directory_uri() . '/css/main.css';
 	$string 			= "<link rel='stylesheet' type='text/css' href='$css_file_to_add'>";
 	echo $string;
 }
+
+// remove all Woocommerce CSS
+add_filter( 'woocommerce_enqueue_styles', '__return_false' );
