@@ -1,6 +1,7 @@
 <?php 
 /**
  * Adds Foo_Widget widget.
+ * Use Widget if you want to give ability for the user to add arguments that can change the appearance of the widget.
  */
 class Foo_Widget extends WP_Widget {
 
