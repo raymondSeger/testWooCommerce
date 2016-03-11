@@ -104,3 +104,9 @@ function register_foo_widget() {
     register_widget( 'Foo_Widget' );
 }
 add_action( 'widgets_init', 'register_foo_widget' );
+
+// Register Custom Menu Location
+function register_my_menu() {
+  register_nav_menu('header-menu',__( 'Header Menu' ));
+}
+add_action( 'init', 'register_my_menu' );
