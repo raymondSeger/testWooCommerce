@@ -111,3 +111,12 @@ function register_my_menu() {
   register_nav_menu('header-menu',__( 'Header Menu' ));
 }
 add_action( 'init', 'register_my_menu' );
+
+// add CSS to Admin
+add_action( 'admin_head', 'add_css_to_admin' );
+
+function add_css_to_admin() {
+	$css_file_to_add 	= get_template_directory_uri() . '/css/main.css';
+	$string 			= "<link rel='stylesheet' type='text/css' href='$css_file_to_add'>";
+	echo $string;
+}
