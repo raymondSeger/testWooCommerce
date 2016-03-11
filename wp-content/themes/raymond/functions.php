@@ -1,4 +1,5 @@
 <?php
+// When in doubt, check out https://generatewp.com/theme-support/ :D
 
 if ( ! function_exists( 'setup_the_theme' ) ) :
 
