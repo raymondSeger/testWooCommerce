@@ -106,9 +106,13 @@ if(is_wp_error($item_validity) || is_wp_error($item_check_stock) ) {
     //  show the cart contents
     echo "<pre>";
     foreach( WC()->cart->get_cart() as $cart_item ) {
-      print_r( $cart_item );
-      echo "<hr />";
-      print_r( WC()->cart->get_item_data( $cart_item ) );
+
+        // https://docs.woothemes.com/wc-apidocs/class-WC_Product.html
+
+        $product = new WC_Product($cart_item['product_id']);
+        print_r( $product );
+        echo $product->add_to_cart_url( );
+        echo "<hr />";
     }
     echo "</pre>";
 }
