@@ -78,19 +78,41 @@ echo paginate_links( array(
 
 echo "<hr />";
 // Set the cart
-$cart = new WC_Cart();
+// THIS MUST BE WC()->cart instead of creating a new Cart object
+$cart = WC()->cart;
 
+/*
 $product_id_to_add = 26;
 $quantity_of_product_to_add = 1;
 // add 1 item to cart
 $cart->add_to_cart($product_id_to_add, $quantity_of_product_to_add);
+*/
 
-print_r($cart);
+//print_r($cart);
 
 echo "<br />";
 echo $cart->get_cart_contents_count();
 echo "<br />";
 echo $cart->get_cart_contents_weight();
+
+// check if the items still exist or modified
+$item_validity      = $cart->check_cart_item_validity();
+$item_check_stock   = $cart->check_cart_item_stock();
+
+if(is_wp_error($item_validity) || is_wp_error($item_check_stock) ) {
+    echo 'error';
+} else {
+
+    //  show the cart contents
+    echo "<pre>";
+    foreach( WC()->cart->get_cart() as $cart_item ) {
+      print_r( $cart_item );
+      echo "<hr />";
+      print_r( WC()->cart->get_item_data( $cart_item ) );
+    }
+    echo "</pre>";
+}
+
 
 echo "<hr />";
 ?>
