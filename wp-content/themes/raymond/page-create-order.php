@@ -5,6 +5,10 @@
 get_header(); 
 
 // create new order object with some products inside it,
+// 
+// It is better if there is a page that make sure if there is a coupon, and then loop the items in the cart
+// apply the coupon price
+// calculate shipping and taxes
 ?>
 
 
