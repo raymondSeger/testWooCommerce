@@ -13,15 +13,16 @@ get_header();
 </div>
 
 <?php 
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
 // get only 2 posts per page, get the content for page 2 (which means OFFSET 2)
 $query = new WP_Query(
-            array(
-            'post_type'         => 'product',
-            'posts_per_page'    => 2,
-            'paged'				=> 2
-            )
-        ); 
+    array(
+    'post_type'         => 'product',
+    'posts_per_page'    => 2,
+    'paged'				=> $paged
+    )
+); 
 ?>
 
 <?php while ( $query->have_posts() ) : $query->the_post(); global $product; ?>
@@ -52,6 +53,27 @@ $query = new WP_Query(
 ?>
 
 <?php endwhile; ?>
+
+<?php 
+// NEXT and PREVIOUS links
+// next_posts_link() usage with max_num_pages
+echo next_posts_link( 'Older Entries', $query->max_num_pages );
+echo previous_posts_link( 'Newer Entries' );
+?>
+
+<?php
+// 1 2 3 4 Paginations
+echo "<br />";
+$big = 999999999; // need an unlikely integer
+
+echo paginate_links( array(
+	'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+	'format' => '?paged=%#%',
+	'current' => max( 1, get_query_var('paged') ),
+	'total' => $query->max_num_pages
+) );
+?>
+
 <?php wp_reset_query(); ?>
 
 <?php get_footer(); ?>
