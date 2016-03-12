@@ -21,6 +21,13 @@ if($user_id == 0){
     echo "error";
 }
 
+// The coupon
+// https://docs.woothemes.com/wc-apidocs/class-WC_Coupon.html
+$the_coupon = new WC_Coupon('reduceprice');
+echo $the_coupon->enable_free_shipping( );
+echo $the_coupon->is_valid_for_cart( );
+echo $the_coupon->coupon_amount;
+
 // DOCS: https://docs.woothemes.com/wc-apidocs/class-WC_Abstract_Order.html
 // and 
 // https://docs.woothemes.com/wc-apidocs/class-WC_Order.html
@@ -31,11 +38,23 @@ $order = wc_create_order(array(
     'customer_note' => "No note!",
 ));
 
+
 foreach( WC()->cart->get_cart() as $cart_item ) {
     $product    = new WC_Product($cart_item['product_id']);
     $quantity   = $cart_item['quantity'];
     $order->add_product( $product, $quantity );
 }
+
+// set address
+$address = [
+    'first_name' => 'this is fast order',
+    'phone'      => $phone,
+    'address_1'  => 'без адреса',
+    'country'    => 'RU'
+];
+$order->set_address( $address, 'billing' );
+$order->set_address( $address, 'shipping' );
+
 
 // calculate total, shipping, taxes
 $order->calculate_totals();
